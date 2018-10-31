@@ -7,10 +7,8 @@
 using namespace std;
 
 int main() {
-    BigInt foo(3455);
-    BigInt bar(28838);
-    cout<<foo-bar<<endl;
+    BigInt foo(10);
+    BigInt bar(2);
+    cout<<foo-bar+2<<endl;
     return 0;
 }
-
-//3455-28838 = -25383

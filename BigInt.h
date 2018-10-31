@@ -12,20 +12,24 @@
 using Multiprecision = std::vector<uint_fast8_t>;
 
 class BigInt{
-private:
 
-    //PRIVATE VARIABLES
+private:
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PRIVATE VARIABLES
 
     Multiprecision num{};                                                   //Vector that stores digits of the integer
+
     bool Signed{};                                                          //Defines if the integer is signed or unsigned
 
-    //PRIVATE CONST FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PRIVATE CONST FUNCTIONS
 
     int CountDigits(long long n) const;                                     //Counts digits of a long long int
 
     long long int Sum(Multiprecision x) const;                              //Sums digits of a vector
 
-    //PRIVATE CONST CONVERSIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PRIVATE CONST CONVERSIONS
 
     Multiprecision ToVector(std::string x) const;                           //string --> vector<uint_fast8_t>
 
@@ -35,28 +39,38 @@ private:
 
     long long ToInt(Multiprecision x) const;                                //vector<uint_fast8_t> --> long long int
 
-    //PRIVATE CONST MATHEMATICAL FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PRIVATE CONST MATHEMATICAL FUNCTIONS
 
     Multiprecision Add(Multiprecision x, Multiprecision y) const;           //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> + vector<uint_fast8_t>
 
     Multiprecision Substract(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> - vector<uint_fast8_t>
+
 public:
 
-    //CONSTRUCTORS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  CONSTRUCTORS
 
     BigInt();                                                               //Default constructor (set 0)
 
-    explicit BigInt(Multiprecision root);                                            //Set from vector<uint_fast8_t> constructor
+    explicit BigInt(Multiprecision root);                                   //Set from vector<uint_fast8_t> constructor
 
-    explicit BigInt(std::string root);                                               //Set from string constructor
+    explicit BigInt(std::string root);                                      //Set from string constructor
 
-    explicit BigInt(long long root);                                                 //Set from long long int constructor
+    explicit BigInt(long long root);                                        //Set from long long int constructor
 
-    //FRIENDSHIP DECLARATIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  FRIENDSHIP DECLARATIONS
 
     friend BigInt operator+(const BigInt &x, const BigInt &y);              //Gives operator+ access to private function: Multiprecision Add(Multiprecision x, Multiprecision y)
+    friend BigInt operator+(const BigInt &x, const BigInt &y);
+    friend BigInt operator+(const long long &x, const BigInt &y);
+    friend BigInt operator+(const BigInt &x, const long long &y);
+    friend BigInt operator+(const std::string &x, const BigInt &y);
+    friend BigInt operator+(const BigInt &x, const std::string &y);
 
-    //PUBLIC CONST FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PUBLIC CONST FUNCTIONS
 
     std::string GetString() const;                                          //Return the value of BigInt [num] as string
 
@@ -68,7 +82,8 @@ public:
 
     void Print() const;                                                     //Cout the value of BigInt [num]
 
-    //PUBLIC NON CONST FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  PUBLIC NON-CONST FUNCTIONS
 
     void Set(Multiprecision root);                                          //Set from vector<uint_fast8_t>
 
@@ -79,7 +94,8 @@ public:
     void Extend(std::string root);                                          //Add digits to the end of num
 
 
-    //ONE ARGUMENT MATHEMATICAL FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  ONE ARGUMENT MATHEMATICAL FUNCTIONS
 
     void Add(Multiprecision x);                                             //Add a number expressesed in vector<uint_fast8_t> to num
 
@@ -91,7 +107,8 @@ public:
 
     void Substract(BigInt x);                                               //Substract a number expressesed in BigInt from num
 
-    //TWO ARGUMENT MATHEMATICAL FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  TWO ARGUMENT MATHEMATICAL FUNCTIONS
 
     void Add(std::string x, std::string y);                                 //Add a sum of numbers expressesed in string to num
 
@@ -101,7 +118,8 @@ public:
 
     BigInt Substract(BigInt x) const;                                       //return This - x
 
-    //ALGEBRAIC FUNCTIONS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  LOGICAL FUNCTIONS
 
     long long int Sum() const;                                              //Returns sum of digits
 
@@ -114,7 +132,8 @@ public:
     bool IsSmaller(BigInt x) const;                                         //Returns logic variable that determines wheter This is smaller than BigInt x
 };
 
-//OPERATOR OVERLOADS
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  OPERATOR OVERLOADS
 
 std::ostream &operator << (std::ostream &os, BigInt const &m);              //Overloads operator<< to cout the value of BigInt.GetString()
 
@@ -122,7 +141,23 @@ std::istream & operator >> (std::istream &in,  BigInt &c);                  //Ov
 
 BigInt operator+(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
 
-BigInt operator-(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
+BigInt operator+(const long long &x, const BigInt &y);                      //Overloads operator+ to add types long long int and BigInt
+
+BigInt operator+(const BigInt &x, const long long &y);                      //Overloads operator+ to add types BigInt and long long int
+
+BigInt operator+(const std::string &x, const BigInt &y);                    //Overloads operator+ to add types string and BigInt
+
+BigInt operator+(const BigInt &x, const std::string &y);                    //Overloads operator+ to add types BigInt and string
+
+BigInt operator-(const BigInt &x, const BigInt &y);                         //Overloads operator- to substract types BigInt and BigInt
+
+BigInt operator-(const long long &x, const BigInt &y);                      //Overloads operator- to substract types long long int and BigInt
+
+BigInt operator-(const BigInt &x, const long long &y);                      //Overloads operator- to substract types BigInt and long long int
+
+BigInt operator-(const std::string &x, const BigInt &y);                    //Overloads operator- to substract types string and BigInt
+
+BigInt operator-(const BigInt &x, const std::string &y);                    //Overloads operator- to substract types BigInt and string
 
 
 
