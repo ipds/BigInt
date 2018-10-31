@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>BigInt.h</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,0); }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,128); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+BigInt.h</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">//</span><span class="s1"> 
+</span><span class="s0">// Created by Adam Szokalski on 31/10/2018.</span><span class="s1"> 
+</span><span class="s0">//</span><span class="s1"> 
+ 
+</span><span class="s2">#ifndef </span><span class="s1">BIGINT_BIGINT_H 
+</span><span class="s2">#define </span><span class="s1">BIGINT_BIGINT_H 
+ 
+</span><span class="s2">#include </span><span class="s3">&lt;iostream&gt;</span><span class="s1"> 
+</span><span class="s2">#include </span><span class="s3">&lt;string&gt;</span><span class="s1"> 
+</span><span class="s2">#include </span><span class="s3">&lt;vector&gt;</span><span class="s1"> 
+ 
+</span><span class="s4">using </span><span class="s1">Multiprecision = std::vector&lt;uint_fast8_t&gt;; 
+ 
+</span><span class="s4">class </span><span class="s1">BigInt{ 
+</span><span class="s4">private</span><span class="s1">: 
+ 
+    </span><span class="s0">//PRIVATE VARIABLES</span><span class="s1"> 
+ 
+    Multiprecision num{};                                                   </span><span class="s0">//Vector that stores digits of the integer</span><span class="s1"> 
+    </span><span class="s4">bool </span><span class="s1">isSigned{};                                                        </span><span class="s0">//Defines if the integer is signed or unsigned</span><span class="s1"> 
+ 
+    </span><span class="s0">//PRIVATE CONST FUNCTIONS</span><span class="s1"> 
+ 
+    </span><span class="s4">int </span><span class="s1">CountDigits(</span><span class="s4">long long </span><span class="s1">n) </span><span class="s4">const</span><span class="s1">;                                     </span><span class="s0">//Counts digits of a long long int</span><span class="s1"> 
+ 
+    </span><span class="s0">//PRIVATE CONST CONVERSIONS</span><span class="s1"> 
+    </span><span class="s0">//PRIVATE CONST CONVERSIONS</span><span class="s1"> 
+ 
+    Multiprecision ToVector(std::string x) </span><span class="s4">const</span><span class="s1">;                           </span><span class="s0">//string --&gt; vector&lt;uint_fast8_t&gt;</span><span class="s1"> 
+ 
+    Multiprecision ToVector(</span><span class="s4">long long </span><span class="s1">x) </span><span class="s4">const</span><span class="s1">;                             </span><span class="s0">//long long int --&gt; vector&lt;uint_fast8_t&gt;</span><span class="s1"> 
+ 
+    std::string ToString(Multiprecision x) </span><span class="s4">const</span><span class="s1">;                           </span><span class="s0">//vector&lt;uint_fast8_t&gt; --&gt; string</span><span class="s1"> 
+ 
+    </span><span class="s4">long long </span><span class="s1">ToInt(Multiprecision x) </span><span class="s4">const</span><span class="s1">;                                </span><span class="s0">//vector&lt;uint_fast8_t&gt; --&gt; long long int</span><span class="s1"> 
+ 
+    </span><span class="s0">//PRIVATE CONST MATHEMATICAL FUNCTIONS</span><span class="s1"> 
+ 
+    Multiprecision Add(Multiprecision x, Multiprecision y) </span><span class="s4">const</span><span class="s1">;           </span><span class="s0">//(vector&lt;uint_fast8_t&gt;, vector&lt;uint_fast8_t&gt;) --&gt; vector&lt;uint_fast8_t&gt; + vector&lt;uint_fast8_t&gt;</span><span class="s1"> 
+</span><span class="s4">public</span><span class="s1">: 
+ 
+    </span><span class="s0">//CONSTRUCTORS</span><span class="s1"> 
+ 
+    BigInt();                                                               </span><span class="s0">//Default constructor (set 0)</span><span class="s1"> 
+ 
+    </span><span class="s4">explicit </span><span class="s1">BigInt(Multiprecision root);                                            </span><span class="s0">//Set from vector&lt;uint_fast8_t&gt; constructor</span><span class="s1"> 
+ 
+    </span><span class="s4">explicit </span><span class="s1">BigInt(std::string root);                                               </span><span class="s0">//Set from string constructor</span><span class="s1"> 
+ 
+    </span><span class="s4">explicit </span><span class="s1">BigInt(</span><span class="s4">long long </span><span class="s1">root);                                                 </span><span class="s0">//Set from long long int constructor</span><span class="s1"> 
+ 
+    </span><span class="s0">//FRIENDSHIP DECLARATIONS</span><span class="s1"> 
+ 
+    </span><span class="s4">friend </span><span class="s1">BigInt </span><span class="s4">operator</span><span class="s1">+(</span><span class="s4">const </span><span class="s1">BigInt &amp;x, </span><span class="s4">const </span><span class="s1">BigInt &amp;y);              </span><span class="s0">//Gives operator+ access to private function: Multiprecision Add(Multiprecision x, Multiprecision y)</span><span class="s1"> 
+ 
+    </span><span class="s0">//PUBLIC CONST FUNCTIONS</span><span class="s1"> 
+ 
+    std::string GetString() </span><span class="s4">const</span><span class="s1">;                                          </span><span class="s0">//Return the value of BigInt [num] as string</span><span class="s1"> 
+ 
+    </span><span class="s4">long long </span><span class="s1">GetInt() </span><span class="s4">const</span><span class="s1">;                                               </span><span class="s0">//Return the value of BigInt [num] as long long int</span><span class="s1"> 
+ 
+    std::vector&lt;uint_fast8_t&gt; GetVector() </span><span class="s4">const</span><span class="s1">;                            </span><span class="s0">//Return the value of BigInt [num] as vector&lt;uint_fast8_t&gt;</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Print() </span><span class="s4">const</span><span class="s1">;                                                     </span><span class="s0">//Cout the value of BigInt [num]</span><span class="s1"> 
+ 
+    </span><span class="s0">//PUBLIC NON CONST FUNCTIONS</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Set(Multiprecision root);                                          </span><span class="s0">//Set from vector&lt;uint_fast8_t&gt;</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Set(std::string root);                                             </span><span class="s0">//Set from string</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Set(</span><span class="s4">long long </span><span class="s1">root);                                               </span><span class="s0">//Set from long long int</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Extend(std::string root);                                          </span><span class="s0">//Add digits to the end of num</span><span class="s1"> 
+ 
+ 
+    </span><span class="s0">//ONE ARGUMENT MATHEMATICAL FUNCTIONS</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Add(Multiprecision x);                                             </span><span class="s0">//Add a number expressesed in vector&lt;uint_fast8_t&gt; to num</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Add(std::string x);                                                </span><span class="s0">//Add a number expressesed in string to num</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Add(</span><span class="s4">long long </span><span class="s1">x);                                                  </span><span class="s0">//Add a number expressesed in long long int to num</span><span class="s1"> 
+ 
+    </span><span class="s0">//TWO ARGUMENT MATHEMATICAL FUNCTIONS</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Add(std::string x, std::string y);                                 </span><span class="s0">//Add a sum of numbers expressesed in string to num</span><span class="s1"> 
+ 
+    </span><span class="s4">void </span><span class="s1">Add(</span><span class="s4">long long </span><span class="s1">x, </span><span class="s4">long long </span><span class="s1">y);                                     </span><span class="s0">//Add a sum of numbers expressesed in long long int to num</span><span class="s1"> 
+}; 
+ 
+</span><span class="s0">//OPERATOR OVERLOADS</span><span class="s1"> 
+ 
+std::ostream &amp;</span><span class="s4">operator </span><span class="s1">&lt;&lt; (std::ostream &amp;os, BigInt </span><span class="s4">const </span><span class="s1">&amp;m);              </span><span class="s0">//Overloads operator&lt;&lt; to cout the value of BigInt.GetString()</span><span class="s1"> 
+ 
+std::istream &amp; </span><span class="s4">operator </span><span class="s1">&gt;&gt; (std::istream &amp;in,  BigInt &amp;c);                  </span><span class="s0">//Overloads operator&gt;&gt; to cin the value of BigInt.SetString(in)</span><span class="s1"> 
+ 
+BigInt </span><span class="s4">operator</span><span class="s1">+(</span><span class="s4">const </span><span class="s1">BigInt &amp;x, </span><span class="s4">const </span><span class="s1">BigInt &amp;y);                         </span><span class="s0">//Overloads operator+ to add types BigInt and BigInt</span><span class="s1"> 
+ 
+ 
+</span><span class="s2">#endif </span><span class="s0">//BIGINT_BIGINT_H</span><span class="s1"> 
+</span></pre>
+</body>
+</html>

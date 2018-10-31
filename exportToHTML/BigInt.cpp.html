@@ -1,0 +1,205 @@
+<html>
+<head>
+<title>BigInt.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,0); }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(0,0,128); font-weight: bold; }
+.s5 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+BigInt.cpp</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">#include </span><span class="s2">&quot;BigInt.h&quot;</span><span class="s3">//</span><span class="s1"> 
+</span><span class="s3">// Created by Adam Szokalski on 31/10/2018.</span><span class="s1"> 
+</span><span class="s3">//</span><span class="s1"> 
+</span><span class="s0">#include </span><span class="s2">&lt;iostream&gt;</span><span class="s1"> 
+</span><span class="s0">#include </span><span class="s2">&lt;utility&gt;</span><span class="s1"> 
+</span><span class="s0">#include </span><span class="s2">&lt;vector&gt;</span><span class="s1"> 
+</span><span class="s0">#include </span><span class="s2">&lt;string&gt;</span><span class="s1"> 
+</span><span class="s0">#include </span><span class="s2">&lt;cmath&gt;</span><span class="s1"> 
+ 
+ 
+ 
+</span><span class="s4">int </span><span class="s1">BigInt::CountDigits(</span><span class="s4">long long </span><span class="s1">n) </span><span class="s4">const </span><span class="s1">{ 
+    </span><span class="s4">return int</span><span class="s1">(ceil(log10(n))); 
+} 
+ 
+Multiprecision  BigInt::ToVector(std::string x) </span><span class="s4">const </span><span class="s1">{ 
+    Multiprecision ret{}; 
+    </span><span class="s4">for </span><span class="s1">(</span><span class="s4">unsigned int </span><span class="s1">i = </span><span class="s5">0</span><span class="s1">; i &lt;  x.size(); ++i) { 
+    ret.push_back(uint_fast8_t(x[i] - </span><span class="s2">'0'</span><span class="s1">)); 
+    } 
+    </span><span class="s4">return </span><span class="s1">ret; 
+} 
+ 
+Multiprecision  BigInt::ToVector(</span><span class="s4">long long </span><span class="s1">x) </span><span class="s4">const</span><span class="s1">{ 
+    Multiprecision ret{}; 
+    </span><span class="s4">while </span><span class="s1">(x &gt; </span><span class="s5">0</span><span class="s1">) { 
+        </span><span class="s4">int </span><span class="s1">digit = (</span><span class="s4">int</span><span class="s1">) (x % </span><span class="s5">10</span><span class="s1">); 
+        ret.push_back(digit - </span><span class="s5">1</span><span class="s1">); 
+        x /= </span><span class="s5">10</span><span class="s1">; 
+    } 
+    </span><span class="s4">return </span><span class="s1">ret; 
+} 
+ 
+std::string BigInt::ToString(Multiprecision x) </span><span class="s4">const </span><span class="s1">{ 
+    std::string ret = </span><span class="s2">&quot;&quot;</span><span class="s1">; 
+    </span><span class="s4">for</span><span class="s1">(</span><span class="s4">unsigned int </span><span class="s1">i = </span><span class="s5">0</span><span class="s1">; i &lt; x.size() / </span><span class="s4">sizeof</span><span class="s1">(uint_fast8_t); ++i){ 
+        ret += std::to_string(</span><span class="s4">int</span><span class="s1">(x[i])); 
+    } 
+    </span><span class="s4">return </span><span class="s1">ret; 
+} 
+ 
+</span><span class="s4">long long </span><span class="s1">BigInt::ToInt(Multiprecision x) </span><span class="s4">const </span><span class="s1">{ 
+    </span><span class="s4">if</span><span class="s1">(x.size()/ </span><span class="s4">sizeof</span><span class="s1">(uint_fast8_t) &gt; CountDigits(LONG_LONG_MAX)){ 
+        </span><span class="s4">return </span><span class="s5">0</span><span class="s1">; 
+    } </span><span class="s4">else</span><span class="s1">{ 
+        </span><span class="s4">long long </span><span class="s1">ret = </span><span class="s5">0</span><span class="s1">; 
+        </span><span class="s4">int </span><span class="s1">current; 
+        </span><span class="s4">int </span><span class="s1">size = x.size()/ </span><span class="s4">sizeof</span><span class="s1">(uint_fast8_t) - </span><span class="s5">1</span><span class="s1">; 
+        </span><span class="s4">for</span><span class="s1">(</span><span class="s4">unsigned int </span><span class="s1">i = </span><span class="s5">0</span><span class="s1">; i &lt;= x.size()/ </span><span class="s4">sizeof</span><span class="s1">(uint_fast8_t) - </span><span class="s5">1</span><span class="s1">; ++i){ 
+            </span><span class="s4">if</span><span class="s1">(x[i] == </span><span class="s5">0</span><span class="s1">) { ret *= pow(</span><span class="s5">10</span><span class="s1">, size - </span><span class="s5">1</span><span class="s1">); } 
+            </span><span class="s4">else if</span><span class="s1">(x[i] == </span><span class="s5">1</span><span class="s1">) { ret += pow(</span><span class="s5">10</span><span class="s1">, size - i); } 
+            </span><span class="s4">else </span><span class="s1">{ ret += x[i] * pow(</span><span class="s5">10</span><span class="s1">, size - i); } 
+        } 
+        </span><span class="s4">return </span><span class="s1">ret; 
+    } 
+} 
+ 
+Multiprecision BigInt::Add(Multiprecision x, Multiprecision y) </span><span class="s4">const </span><span class="s1">{ 
+    </span><span class="s4">unsigned long </span><span class="s1">x_size = x.size(); 
+    </span><span class="s4">unsigned long </span><span class="s1">y_size = y.size(); 
+    </span><span class="s4">unsigned long </span><span class="s1">res_size{}; 
+    uint_fast8_t curr = </span><span class="s5">0</span><span class="s1">; 
+    Multiprecision res{}; 
+ 
+    </span><span class="s4">if</span><span class="s1">(x_size&gt;y_size){ 
+        res_size = x_size; 
+        </span><span class="s4">for</span><span class="s1">(</span><span class="s4">unsigned int </span><span class="s1">i = </span><span class="s5">0</span><span class="s1">; i &lt; res_size - y_size; ++i){ 
+            y.insert(y.begin(), uint_fast8_t(</span><span class="s5">0</span><span class="s1">)); 
+        } 
+    } </span><span class="s4">else</span><span class="s1">{ 
+        res_size = y_size; 
+        </span><span class="s4">for</span><span class="s1">(</span><span class="s4">unsigned int </span><span class="s1">j = </span><span class="s5">0</span><span class="s1">; j &lt; res_size - x_size; ++j){ 
+            x.insert(x.begin(), uint_fast8_t(</span><span class="s5">0</span><span class="s1">)); 
+        } 
+    } 
+ 
+    reverse(x.begin(), x.end()); 
+    reverse(y.begin(), y.end()); 
+ 
+    </span><span class="s4">for</span><span class="s1">(</span><span class="s4">unsigned int </span><span class="s1">k = </span><span class="s5">0</span><span class="s1">; k &lt; res_size; ++k){ 
+        curr += x[k] + y[k]; 
+        </span><span class="s4">if</span><span class="s1">(curr &gt;= </span><span class="s5">10</span><span class="s1">){ 
+            res.push_back(curr - uint_fast8_t(</span><span class="s5">10</span><span class="s1">)); 
+            curr = </span><span class="s5">1</span><span class="s1">; 
+            </span><span class="s4">if</span><span class="s1">(k == res_size -</span><span class="s5">1</span><span class="s1">){ 
+                res.push_back(curr); 
+            } 
+        } </span><span class="s4">else</span><span class="s1">{ 
+            res.push_back(curr); 
+            curr = </span><span class="s5">0</span><span class="s1">; 
+        } 
+    } 
+ 
+    reverse(res.begin(), res.end()); 
+ 
+    </span><span class="s4">return </span><span class="s1">res; 
+} 
+ 
+BigInt::BigInt(){ Set(</span><span class="s5">0</span><span class="s1">); } 
+ 
+BigInt::BigInt(Multiprecision root){ Set(std::move(root)); } 
+ 
+BigInt::BigInt(std::string root){ Set(std::move(root)); } 
+ 
+BigInt::BigInt(</span><span class="s4">long long </span><span class="s1">root){ Set(root); } 
+ 
+std::string BigInt::GetString() </span><span class="s4">const </span><span class="s1">{ 
+    </span><span class="s4">return </span><span class="s1">ToString(num); 
+} 
+ 
+</span><span class="s4">long long </span><span class="s1">BigInt::GetInt() </span><span class="s4">const </span><span class="s1">{ 
+    </span><span class="s4">return </span><span class="s1">ToInt(num); 
+} 
+ 
+std::vector&lt;uint_fast8_t&gt; BigInt::GetVector() </span><span class="s4">const </span><span class="s1">{ 
+    </span><span class="s4">return </span><span class="s1">num; 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Print() </span><span class="s4">const </span><span class="s1">{ 
+    std::cout&lt;&lt;GetString()&lt;&lt;std::endl; 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Set(Multiprecision root){ 
+    num = root; 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Set(std::string root){ 
+    num.clear(); 
+    num.reserve(root.size()); 
+    isSigned = (root[</span><span class="s5">0</span><span class="s1">] == </span><span class="s2">'-'</span><span class="s1">); 
+    Set(ToVector(root)); 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Set(</span><span class="s4">long long </span><span class="s1">root){ 
+    Set(std::to_string(root)); 
+ 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Extend(std::string root){ 
+    </span><span class="s4">for</span><span class="s1">(</span><span class="s4">unsigned int </span><span class="s1">i = </span><span class="s5">0</span><span class="s1">; i &lt;root.size(); ++i){ 
+        num.push_back(uint_fast8_t(root[i])); 
+    } 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Add(Multiprecision x){ 
+    Set(Add(num, x)); 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Add(std::string x){ 
+    Set(Add(num, ToVector(x))); 
+} 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Add(</span><span class="s4">long long </span><span class="s1">x){ 
+    Add(ToVector(std::to_string(x))); 
+} 
+ 
+ 
+</span><span class="s4">void </span><span class="s1">BigInt::Add(std::string x, std::string y){ 
+    Multiprecision x_vector = ToVector(x); 
+    Multiprecision y_vector = ToVector(y); 
+    </span><span class="s4">return </span><span class="s1">Add(Add(x_vector, y_vector)); 
+} 
+</span><span class="s4">void </span><span class="s1">BigInt::Add(</span><span class="s4">long long </span><span class="s1">x, </span><span class="s4">long long </span><span class="s1">y){ 
+    Add(std::to_string(x), std::to_string(y)); 
+} 
+ 
+std::ostream &amp;</span><span class="s4">operator </span><span class="s1">&lt;&lt; (std::ostream &amp;os, BigInt </span><span class="s4">const </span><span class="s1">&amp;m) { 
+    </span><span class="s4">return </span><span class="s1">os &lt;&lt; m.GetString(); 
+} 
+ 
+std::istream &amp; </span><span class="s4">operator </span><span class="s1">&gt;&gt; (std::istream &amp;in,  BigInt &amp;c) 
+{ 
+    std::string arg; 
+    in &gt;&gt; arg; 
+    c.Set(arg); 
+    </span><span class="s4">return </span><span class="s1">in; 
+} 
+ 
+BigInt </span><span class="s4">operator</span><span class="s1">+(</span><span class="s4">const </span><span class="s1">BigInt &amp;x, </span><span class="s4">const </span><span class="s1">BigInt &amp;y) 
+{ 
+    </span><span class="s4">return </span><span class="s1">BigInt(x.Add(x.GetVector(), y.GetVector())); 
+}</span></pre>
+</body>
+</html>
