@@ -22,28 +22,28 @@ std::istream & operator >> (std::istream &in,  BigInt &c) {
 //  ADDITION
 
 BigInt operator+(const BigInt &x, const BigInt &y) {
-    return BigInt(x.Add(x.GetVector(), y.GetVector()));
+    return x.Add(y);
 }
 
 BigInt operator+(const long long &x, const BigInt &y) {
-    BigInt z(x);
-    return BigInt(z.Add(z.GetVector(), y.GetVector()));
+    const BigInt z(x);
+    return z.Add(y);
 }
 
 BigInt operator+(const BigInt &x, const long long &y) {
-    BigInt z(y);
-    return BigInt(x.Add(x.GetVector(), z.GetVector()));
+    const BigInt z(y);
+    return x.Add(z);
 }
 
 BigInt operator+(const std::string &x, const BigInt &y) {
-    BigInt z(x);
-    return BigInt(z.Add(z.GetVector(), y.GetVector()));
+    const BigInt z(x);
+    return z.Add(y);
 }
 
 BigInt operator+(const BigInt &x, const std::string &y)
 {
-    BigInt z(y);
-    return BigInt(x.Add(x.GetVector(), z.GetVector()));
+    const BigInt z(y);
+    return x.Add(z);
 }
 
 
@@ -51,6 +51,6 @@ BigInt operator+(const BigInt &x, const std::string &y)
 //  SUBSTRACTION
 
 BigInt operator-(const BigInt &x, const BigInt &y) {
-    return x.Substract(y);
+    return x.Subtract(y);
 }
 

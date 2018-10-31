@@ -50,34 +50,23 @@ Multiprecision BigInt::Add(Multiprecision x, Multiprecision y) const {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  ONE ARGUMENT
 
-void BigInt::Add(Multiprecision x){
-    Set(Add(num, x));
-}
-
-void BigInt::Add(std::string x){
-    Set(Add(num, ToVector(x)));
-}
-
-void BigInt::Add(long long x){
-    Add(ToVector(std::to_string(x)));
-}
-
 void BigInt::Add(BigInt x){
     Add(x.GetVector());
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  TWO ARGUMENT
-
-void BigInt::Add(std::string x, std::string y){
-    Multiprecision x_vector = ToVector(x);
-    Multiprecision y_vector = ToVector(y);
-    return Add(Add(x_vector, y_vector));
-}
-void BigInt::Add(long long x, long long y){
-    Add(std::to_string(x), std::to_string(y));
+void BigInt::Add(Multiprecision x){
+    Set(Add(GetVector(), x));
 }
 
-void BigInt::Add(BigInt x, BigInt y){
-    Add(x.GetVector(), y.GetVector());
+void BigInt::Add(std::string x){
+    Add(ToVector(x));
+}
+
+void BigInt::Add(long long x){
+    Add(ToVector(std::to_string(x)));
+    //to_string() can be removed. There is ToVector(long long int)
+}
+
+BigInt BigInt::Add(BigInt x) const{
+    return BigInt(Add(GetVector(), x.GetVector()));
 }

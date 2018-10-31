@@ -44,7 +44,7 @@ private:
 
     Multiprecision Add(Multiprecision x, Multiprecision y) const;           //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> + vector<uint_fast8_t>
 
-    Multiprecision Substract(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> - vector<uint_fast8_t>
+    Multiprecision Subtract(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> - vector<uint_fast8_t>
 
 public:
 
@@ -62,12 +62,7 @@ public:
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  FRIENDSHIP DECLARATIONS
 
-    friend BigInt operator+(const BigInt &x, const BigInt &y);              //Gives operator+ access to private function: Multiprecision Add(Multiprecision x, Multiprecision y)
-    friend BigInt operator+(const BigInt &x, const BigInt &y);
-    friend BigInt operator+(const long long &x, const BigInt &y);
-    friend BigInt operator+(const BigInt &x, const long long &y);
-    friend BigInt operator+(const std::string &x, const BigInt &y);
-    friend BigInt operator+(const BigInt &x, const std::string &y);
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  PUBLIC CONST FUNCTIONS
@@ -85,6 +80,8 @@ public:
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  PUBLIC NON-CONST FUNCTIONS
 
+    void SetSign(bool x);                                                   //Set sign to true or false
+
     void Set(Multiprecision root);                                          //Set from vector<uint_fast8_t>
 
     void Set(std::string root);                                             //Set from string
@@ -97,26 +94,25 @@ public:
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  ONE ARGUMENT MATHEMATICAL FUNCTIONS
 
+    void Add(BigInt x);                                                     //Add a number expressesed in BigInt to num
+
     void Add(Multiprecision x);                                             //Add a number expressesed in vector<uint_fast8_t> to num
 
     void Add(std::string x);                                                //Add a number expressesed in string to num
 
     void Add(long long x);                                                  //Add a number expressesed in long long int to num
 
-    void Add(BigInt x);                                                     //Add a number expressesed in BigInt to num
+    BigInt Add(BigInt x) const;                                             //return this(BigInt) + BigInt
 
-    void Substract(BigInt x);                                               //Substract a number expressesed in BigInt from num
+    void Subtract(BigInt x);                                                //Substract a number expressesed in BigInt from num
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  TWO ARGUMENT MATHEMATICAL FUNCTIONS
+    void Subtract(Multiprecision x);                                        //Substract a number expressesed in vector<uint_fast8_t> from num
 
-    void Add(std::string x, std::string y);                                 //Add a sum of numbers expressesed in string to num
+    void Subtract(std::string x);                                           //Substract a number expressesed in BigInt from num
 
-    void Add(long long x, long long y);                                     //Add a sum of numbers expressesed in long long int to num
+    void Subtract(long long x);                                             //Substract a number expressesed in BigInt from num
 
-    void Add(BigInt x, BigInt y);                                           //Add a sum of numbers expressesed in vector<uint_fast8_t> to num
-
-    BigInt Substract(BigInt x) const;                                       //return This - x
+    BigInt Subtract(BigInt x) const;                                        //return this(BigInt) - BigInt
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  LOGICAL FUNCTIONS

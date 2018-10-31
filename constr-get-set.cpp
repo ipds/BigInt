@@ -41,14 +41,23 @@ void BigInt::Print() const {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  SET
 
+void BigInt::SetSign(bool x){
+    Signed = x;
+}
+
 void BigInt::Set(Multiprecision root){
-    num = root;
+    if(root[0] == uint_fast8_t('\xfd')){
+        Signed = true;
+        num.assign(root.begin() + 1, root.end());
+
+    } else{
+        num = root;
+    }
 }
 
 void BigInt::Set(std::string root){
     num.clear();
     num.reserve(root.size());
-    Signed = (root[0] == '-');
     Set(ToVector(root));
 }
 

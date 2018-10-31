@@ -7,7 +7,7 @@
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  MAIN FUNCTION
 
-Multiprecision BigInt::Substract(Multiprecision x, Multiprecision y) const{
+Multiprecision BigInt::Subtract(Multiprecision x, Multiprecision y) const{
     unsigned long x_size = x.size();
     unsigned long y_size = y.size();
     unsigned long res_size{};
@@ -47,17 +47,54 @@ Multiprecision BigInt::Substract(Multiprecision x, Multiprecision y) const{
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  ONE ARGUMENT
 
-void BigInt::Substract(BigInt x){
-    if(Compare(x) == 2){
-        Set(Substract(x.GetVector(), GetVector()));
-        Signed = true;
+void BigInt::Subtract(BigInt x) {
+    if(IsSigned()){
+        if(x.IsSigned()){
+            if(Compare(x) == 2){
+                Set(Subtract(GetVector(), x.GetVector()));
+                Signed = true;
+            } else{
+                Set(Subtract(x.GetVector(), GetVector()));
+                Signed = false;
+            }
+        } else {
+            Set(Add(GetVector(), x.GetVector()));
+            Signed = true;
+        }
     } else{
-        Set(Substract(GetVector(), x.GetVector()));
+        if(x.IsSigned()){
+            Set(Add(GetVector(), x.GetVector()));
+            Signed = false;
+        } else{
+            if(Compare(x) == 2){
+                Set(Subtract(x.GetVector(), GetVector()));
+                Signed = true;
+            } else{
+                Set(Subtract(GetVector(), x.GetVector()));
+                Signed = false;
+            }
+        }
     }
 }
 
-BigInt BigInt::Substract(BigInt x) const{
+void BigInt::Subtract(Multiprecision x){
+    BigInt z(x);
+    Subtract(z);
+}
+
+void BigInt::Subtract(std::string x){
+    BigInt z(x);
+    Subtract(z);
+}
+
+void BigInt::Subtract(long long x){
+    BigInt z(x);
+    Subtract(z);
+}
+
+BigInt BigInt::Subtract(BigInt x) const{
     BigInt res(num);
-    res.Substract(x);
+    res.SetSign(IsSigned());
+    res.Subtract(x);
     return res;
 }
