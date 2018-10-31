@@ -17,13 +17,14 @@ private:
     //PRIVATE VARIABLES
 
     Multiprecision num{};                                                   //Vector that stores digits of the integer
-    bool isSigned{};                                                        //Defines if the integer is signed or unsigned
+    bool Signed{};                                                          //Defines if the integer is signed or unsigned
 
     //PRIVATE CONST FUNCTIONS
 
     int CountDigits(long long n) const;                                     //Counts digits of a long long int
 
-    //PRIVATE CONST CONVERSIONS
+    long long int Sum(Multiprecision x) const;                              //Sums digits of a vector
+
     //PRIVATE CONST CONVERSIONS
 
     Multiprecision ToVector(std::string x) const;                           //string --> vector<uint_fast8_t>
@@ -37,6 +38,8 @@ private:
     //PRIVATE CONST MATHEMATICAL FUNCTIONS
 
     Multiprecision Add(Multiprecision x, Multiprecision y) const;           //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> + vector<uint_fast8_t>
+
+    Multiprecision Substract(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> - vector<uint_fast8_t>
 public:
 
     //CONSTRUCTORS
@@ -59,7 +62,9 @@ public:
 
     long long GetInt() const;                                               //Return the value of BigInt [num] as long long int
 
-    std::vector<uint_fast8_t> GetVector() const;                            //Return the value of BigInt [num] as vector<uint_fast8_t>
+    Multiprecision GetVector() const;                                       //Return the value of BigInt [num] as vector<uint_fast8_t>
+
+    bool IsSigned() const;                                                  //Return a logic variable that determines if BigInt is signed
 
     void Print() const;                                                     //Cout the value of BigInt [num]
 
@@ -84,6 +89,8 @@ public:
 
     void Add(BigInt x);                                                     //Add a number expressesed in BigInt to num
 
+    void Substract(BigInt x);                                               //Substract a number expressesed in BigInt from num
+
     //TWO ARGUMENT MATHEMATICAL FUNCTIONS
 
     void Add(std::string x, std::string y);                                 //Add a sum of numbers expressesed in string to num
@@ -91,6 +98,20 @@ public:
     void Add(long long x, long long y);                                     //Add a sum of numbers expressesed in long long int to num
 
     void Add(BigInt x, BigInt y);                                           //Add a sum of numbers expressesed in vector<uint_fast8_t> to num
+
+    BigInt Substract(BigInt x) const;                                       //return This - x
+
+    //ALGEBRAIC FUNCTIONS
+
+    long long int Sum() const;                                              //Returns sum of digits
+
+    bool Equals(BigInt x) const;                                            //Returns logic variable that determines wheter This equals BigInt x
+
+    int Compare(BigInt x) const;                                            //0 - Equal; 1 - Greater than x; 2 - Smaller than x;
+
+    bool IsGreater(BigInt x) const;                                         //Returns logic variable that determines wheter This is greater than BigInt x
+
+    bool IsSmaller(BigInt x) const;                                         //Returns logic variable that determines wheter This is smaller than BigInt x
 };
 
 //OPERATOR OVERLOADS
@@ -100,6 +121,9 @@ std::ostream &operator << (std::ostream &os, BigInt const &m);              //Ov
 std::istream & operator >> (std::istream &in,  BigInt &c);                  //Overloads operator>> to cin the value of BigInt.SetString(in)
 
 BigInt operator+(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
+
+BigInt operator-(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
+
 
 
 #endif //BIGINT_BIGINT_H

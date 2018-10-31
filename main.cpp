@@ -4,18 +4,13 @@
 #include <cmath>
 #include "BigInt.h"
 
+using namespace std;
+
 int main() {
-    BigInt foo{};
-    BigInt bar{};
-
-    std::cout << "Set foo: ";
-    std::cin >> foo;
-    std::cout << std::endl;
-
-    std::cout << "Set bar: ";
-    std::cin >> bar;
-    std::cout << std::endl;
-
-    std::cout << foo << " + " << bar <<" = " << foo + bar << std::endl;
+    BigInt foo(3455);
+    BigInt bar(28838);
+    cout<<foo-bar<<endl;
     return 0;
 }
+
+//3455-28838 = -25383
