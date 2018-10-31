@@ -154,6 +154,9 @@ void BigInt::Add(long long x){
     Add(ToVector(std::to_string(x)));
 }
 
+void BigInt::Add(BigInt x){
+    Add(x.GetVector());
+}
 
 void BigInt::Add(std::string x, std::string y){
     Multiprecision x_vector = ToVector(x);
@@ -162,6 +165,10 @@ void BigInt::Add(std::string x, std::string y){
 }
 void BigInt::Add(long long x, long long y){
     Add(std::to_string(x), std::to_string(y));
+}
+
+void BigInt::Add(BigInt x, BigInt y){
+    Add(x.GetVector(), y.GetVector());
 }
 
 std::ostream &operator << (std::ostream &os, BigInt const &m) {

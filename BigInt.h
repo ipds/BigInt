@@ -82,11 +82,15 @@ public:
 
     void Add(long long x);                                                  //Add a number expressesed in long long int to num
 
+    void Add(BigInt x);                                                     //Add a number expressesed in BigInt to num
+
     //TWO ARGUMENT MATHEMATICAL FUNCTIONS
 
     void Add(std::string x, std::string y);                                 //Add a sum of numbers expressesed in string to num
 
     void Add(long long x, long long y);                                     //Add a sum of numbers expressesed in long long int to num
+
+    void Add(BigInt x, BigInt y);                                           //Add a sum of numbers expressesed in vector<uint_fast8_t> to num
 };
 
 //OPERATOR OVERLOADS
