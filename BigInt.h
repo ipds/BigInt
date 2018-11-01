@@ -46,6 +46,8 @@ private:
 
     Multiprecision Subtract(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> - vector<uint_fast8_t>
 
+    Multiprecision Multiply(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> * vector<uint_fast8_t>
+
 public:
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -104,6 +106,7 @@ public:
 
     BigInt Add(BigInt x) const;                                             //return this(BigInt) + BigInt
 
+
     void Subtract(BigInt x);                                                //Substract a number expressesed in BigInt from num
 
     void Subtract(Multiprecision x);                                        //Substract a number expressesed in vector<uint_fast8_t> from num
@@ -113,6 +116,17 @@ public:
     void Subtract(long long x);                                             //Substract a number expressesed in BigInt from num
 
     BigInt Subtract(BigInt x) const;                                        //return this(BigInt) - BigInt
+
+
+    void Multiply(BigInt x);                                                //Multiply a number expressesed in BigInt from num
+
+    void Multiply(Multiprecision x);                                        //Multiply a number expressesed in vector<uint_fast8_t> from num
+
+    void Multiply(std::string x);                                           //Multiply a number expressesed in BigInt from num
+
+    void Multiply(long long x);                                             //Multiply a number expressesed in BigInt from num
+
+    BigInt Multiply(BigInt x) const;                                        //return this(BigInt) * BigInt
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  LOGICAL FUNCTIONS
@@ -135,6 +149,7 @@ std::ostream &operator << (std::ostream &os, BigInt const &m);              //Ov
 
 std::istream & operator >> (std::istream &in,  BigInt &c);                  //Overloads operator>> to cin the value of BigInt.SetString(in)
 
+
 BigInt operator+(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
 
 BigInt operator+(const long long &x, const BigInt &y);                      //Overloads operator+ to add types long long int and BigInt
@@ -145,15 +160,27 @@ BigInt operator+(const std::string &x, const BigInt &y);                    //Ov
 
 BigInt operator+(const BigInt &x, const std::string &y);                    //Overloads operator+ to add types BigInt and string
 
-BigInt operator-(const BigInt &x, const BigInt &y);                         //Overloads operator- to substract types BigInt and BigInt
 
-BigInt operator-(const long long &x, const BigInt &y);                      //Overloads operator- to substract types long long int and BigInt
+BigInt operator-(const BigInt &x, const BigInt &y);                         //Overloads operator- to subtract types BigInt and BigInt
 
-BigInt operator-(const BigInt &x, const long long &y);                      //Overloads operator- to substract types BigInt and long long int
+BigInt operator-(const long long &x, const BigInt &y);                      //Overloads operator- to subtract types long long int and BigInt
 
-BigInt operator-(const std::string &x, const BigInt &y);                    //Overloads operator- to substract types string and BigInt
+BigInt operator-(const BigInt &x, const long long &y);                      //Overloads operator- to subtract types BigInt and long long int
 
-BigInt operator-(const BigInt &x, const std::string &y);                    //Overloads operator- to substract types BigInt and string
+BigInt operator-(const std::string &x, const BigInt &y);                    //Overloads operator- to subtract types string and BigInt
+
+BigInt operator-(const BigInt &x, const std::string &y);                    //Overloads operator- to subtract types BigInt and string
+
+
+BigInt operator*(const BigInt &x, const BigInt &y);                         //Overloads operator- to multiply types BigInt and BigInt
+
+BigInt operator*(const long long &x, const BigInt &y);                      //Overloads operator- to multiply types long long int and BigInt
+
+BigInt operator*(const BigInt &x, const long long &y);                      //Overloads operator- to multiply types BigInt and long long int
+
+BigInt operator*(const std::string &x, const BigInt &y);                    //Overloads operator- to multiply types string and BigInt
+
+BigInt operator*(const BigInt &x, const std::string &y);                    //Overloads operator- to multiply types BigInt and string
 
 
 

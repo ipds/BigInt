@@ -1,6 +1,7 @@
 //
 // Created by Adam Szokalski on 31/10/2018.
 //
+
 #include "BigInt.h"
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -58,6 +59,7 @@ void BigInt::Add(BigInt x){
         Set(x.GetVector());
         SetSign(x.IsSigned());
     } else if(x.IsSigned()){
+        x.SetSign(false);
         Subtract(x);
     } else{
         Set(Add(GetVector(), x.GetVector()));

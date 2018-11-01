@@ -2,6 +2,8 @@
 // Created by Adam Szokalski on 31/10/2018.
 //
 
+#include <utility>
+
 #include "BigInt.h"
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -78,12 +80,12 @@ void BigInt::Subtract(BigInt x) {
 }
 
 void BigInt::Subtract(Multiprecision x){
-    BigInt z(x);
+    BigInt z(std::move(x));
     Subtract(z);
 }
 
 void BigInt::Subtract(std::string x){
-    BigInt z(x);
+    BigInt z(std::move(x));
     Subtract(z);
 }
 
@@ -95,6 +97,6 @@ void BigInt::Subtract(long long x){
 BigInt BigInt::Subtract(BigInt x) const{
     BigInt res(num);
     res.SetSign(IsSigned());
-    res.Subtract(x);
+    res.Subtract(std::move(x));
     return res;
 }

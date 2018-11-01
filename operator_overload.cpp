@@ -54,3 +54,52 @@ BigInt operator-(const BigInt &x, const BigInt &y) {
     return x.Subtract(y);
 }
 
+BigInt operator-(const long long &x, const BigInt &y) {
+    const BigInt z(x);
+    return z.Subtract(y);
+}
+
+BigInt operator-(const BigInt &x, const long long &y) {
+    const BigInt z(y);
+    return x.Subtract(z);
+}
+
+BigInt operator-(const std::string &x, const BigInt &y) {
+    const BigInt z(x);
+    return z.Subtract(y);
+}
+
+BigInt operator-(const BigInt &x, const std::string &y)
+{
+    const BigInt z(y);
+    return x.Subtract(z);
+}
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  MULTIPLICATION
+
+BigInt operator*(const BigInt &x, const BigInt &y) {
+    return x.Multiply(y);
+}
+
+BigInt operator*(const long long &x, const BigInt &y) {
+    const BigInt z(x);
+    return z.Multiply(y);
+}
+
+BigInt operator*(const BigInt &x, const long long &y) {
+    const BigInt z(y);
+    return x.Multiply(z);
+}
+
+BigInt operator*(const std::string &x, const BigInt &y) {
+    const BigInt z(x);
+    return z.Multiply(y);
+}
+
+BigInt operator*(const BigInt &x, const std::string &y)
+{
+    const BigInt z(y);
+    return x.Multiply(z);
+}
