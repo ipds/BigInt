@@ -19,6 +19,8 @@ private:
 
     Multiprecision num{};                                                   //Vector that stores digits of the integer
 
+    unsigned int base = 10;                                                 //Defines if the integer is signed or unsigned
+
     bool Signed{};                                                          //Defines if the integer is signed or unsigned
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -27,6 +29,8 @@ private:
     int CountDigits(long long n) const;                                     //Counts digits of a long long int
 
     long long int Sum(Multiprecision x) const;                              //Sums digits of a vector
+
+    Multiprecision Abs(Multiprecision x) const;                             //Returns absolute value of x REMOVE
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  PRIVATE CONST CONVERSIONS
@@ -44,9 +48,13 @@ private:
 
     Multiprecision Add(Multiprecision x, Multiprecision y) const;           //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> + vector<uint_fast8_t>
 
-    Multiprecision Subtract(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> - vector<uint_fast8_t>
+    Multiprecision Subtract(Multiprecision x, Multiprecision y) const;      //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> - vector<uint_fast8_t>
 
-    Multiprecision Multiply(Multiprecision x, Multiprecision y) const;     //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> * vector<uint_fast8_t>
+    Multiprecision Multiply(Multiprecision x, Multiprecision y) const;      //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> * vector<uint_fast8_t>
+
+    Multiprecision Divide(Multiprecision n, int d) const;                   //(vector<uint_fast8_t>, int (int < base) --> vector<uint_fast8_t> / int
+
+    BigInt Divide(BigInt n, BigInt d) const;                                //(vector<uint_fast8_t>, int (int < base) --> vector<uint_fast8_t> / int
 
 public:
 
@@ -68,6 +76,8 @@ public:
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  PUBLIC CONST FUNCTIONS
+
+    unsigned int GetBase() const;                                           //Return the base
 
     std::string GetString() const;                                          //Return the value of BigInt [num] as string
 
@@ -128,8 +138,16 @@ public:
 
     BigInt Multiply(BigInt x) const;                                        //return this(BigInt) * BigInt
 
+
+    BigInt Divide(int x) const;                                             //return this(BigInt) / int (int < base)
+
+
+    BigInt Divide(BigInt x) const;                                  //return this(BigInt) / BigInt
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  LOGICAL FUNCTIONS
+
+    BigInt Abs() const;                                                     //Returns absolute BigInt
 
     long long int Sum() const;                                              //Returns sum of digits
 
@@ -139,7 +157,8 @@ public:
 
     bool IsGreater(BigInt x) const;                                         //Returns logic variable that determines wheter This is greater than BigInt x
 
-    bool IsSmaller(BigInt x) const;                                         //Returns logic variable that determines wheter This is smaller than BigInt x
+    bool IsSmaller(BigInt x) const;
+    //Returns logic variable that determines wheter This is smaller than BigInt x
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,6 +167,13 @@ public:
 std::ostream &operator << (std::ostream &os, BigInt const &m);              //Overloads operator<< to cout the value of BigInt.GetString()
 
 std::istream & operator >> (std::istream &in,  BigInt &c);                  //Overloads operator>> to cin the value of BigInt.SetString(in)
+
+
+bool operator == (const BigInt &x, const BigInt &y);                        //Overloads operator == to check if x & y are equal
+
+bool operator >= (const BigInt &x, const BigInt &y);                        //Overloads operator >= to check if x >= y
+
+bool operator <= (const BigInt &x, const BigInt &y);                        //Overloads operator <= to check if x <= y
 
 
 BigInt operator+(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
@@ -182,6 +208,8 @@ BigInt operator*(const std::string &x, const BigInt &y);                    //Ov
 
 BigInt operator*(const BigInt &x, const std::string &y);                    //Overloads operator- to multiply types BigInt and string
 
+
+BigInt operator/(const BigInt &x, const long long &z);                            //Overloads operator/ to divide types BigInt and int
 
 
 #endif //BIGINT_BIGINT_H

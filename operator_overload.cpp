@@ -19,6 +19,21 @@ std::istream & operator >> (std::istream &in,  BigInt &c) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  Logic
+
+bool operator == (const BigInt &x, const BigInt &y) {
+    return x.Equals(y);
+}
+
+bool operator >= (const BigInt &x, const BigInt &y) {
+    return (x.Equals(y) || x.IsGreater(y));
+}
+
+bool operator <= (const BigInt &x, const BigInt &y) {
+    return (x.Equals(y) || x.IsSmaller(y));
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  ADDITION
 
 BigInt operator+(const BigInt &x, const BigInt &y) {
@@ -102,4 +117,11 @@ BigInt operator*(const BigInt &x, const std::string &y)
 {
     const BigInt z(y);
     return x.Multiply(z);
+}
+
+
+BigInt operator/(const BigInt &x, const long long &z)
+{
+    if(z<x.GetBase()){ return x.Divide(z); }
+    else{ return x.Divide(BigInt(z)); }
 }

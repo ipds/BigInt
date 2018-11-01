@@ -7,8 +7,8 @@
 using namespace std;
 
 int main() {
-    BigInt foo(1e12);
-    BigInt bar(1e13);
-    cout<<foo.IsGreater(bar)<<endl;
+    BigInt foo(20);
+    BigInt bar(5);
+    cout<<foo.Divide(5)<<endl;
     return 0;
 }

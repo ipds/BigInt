@@ -1,5 +1,4 @@
-# BigInt
-A simple c++ multiprecision library
+<img src="./imgs/BIGint-logo.png">
 
 Done:
 - Addition and Subtraction

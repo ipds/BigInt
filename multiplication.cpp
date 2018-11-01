@@ -23,8 +23,8 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
         {
             curr += (x[i] * y_elem);
             if(curr >= 10){
-                fraction.push_back(curr % uint_fast8_t (10));
-                curr -= (curr % 10);
+                fraction.push_back(curr % uint_fast8_t (base));
+                curr -= (curr % base);
             } else{
                 fraction.push_back(curr);
                 curr = 0;
