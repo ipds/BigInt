@@ -7,8 +7,8 @@
 using namespace std;
 
 int main() {
-    BigInt foo(11);
-    BigInt bar(10);
-    cout<<foo-bar<<endl;
+    BigInt foo(-7);
+    BigInt bar(-10);
+    cout<<foo+bar<<endl;
     return 0;
 }

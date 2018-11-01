@@ -51,22 +51,37 @@ Multiprecision BigInt::Add(Multiprecision x, Multiprecision y) const {
 //  ONE ARGUMENT
 
 void BigInt::Add(BigInt x){
-    Add(x.GetVector());
+    if(IsSigned()){
+        BigInt z(GetVector());
+        z.SetSign(false);
+        x.Subtract(z);
+        Set(x.GetVector());
+        SetSign(x.IsSigned());
+    } else if(x.IsSigned()){
+        Subtract(x);
+    } else{
+        Set(Add(GetVector(), x.GetVector()));
+    }
 }
 
 void BigInt::Add(Multiprecision x){
-    Set(Add(GetVector(), x));
+    BigInt z(x);
+    Add(z);
 }
 
 void BigInt::Add(std::string x){
-    Add(ToVector(x));
+    BigInt z(x);
+    Add(z);
 }
 
 void BigInt::Add(long long x){
-    Add(ToVector(std::to_string(x)));
-    //to_string() can be removed. There is ToVector(long long int)
+    BigInt z(x);
+    Add(z);
 }
 
 BigInt BigInt::Add(BigInt x) const{
-    return BigInt(Add(GetVector(), x.GetVector()));
+    BigInt z(GetVector());
+    z.SetSign(IsSigned());
+    z.Add(x);
+    return z;
 }
