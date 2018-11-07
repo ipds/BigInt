@@ -13,8 +13,8 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
     uint_fast8_t carry = 0;
     Multiprecision fraction{};
     Multiprecision res{0};
-    reverse(x.begin(), x.end());
-    reverse(y.begin(), y.end());
+    std::reverse(x.begin(), x.end());
+    std::reverse(y.begin(), y.end());
     for(unsigned int i = 0; i < x.size(); ++i)
     {
         for (auto &y_elem : y)
@@ -30,7 +30,7 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
             }
         }
         if(carry){ fraction.push_back(carry); carry = 0; }
-        reverse(fraction.begin(), fraction.end());
+        std::reverse(fraction.begin(), fraction.end());
         for(unsigned int j = 0; j < i; ++j){
             fraction.push_back(0);
         }
@@ -45,11 +45,7 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
 
 void BigInt::Multiply(BigInt x){
     Set(Multiply(GetVector(), x.GetVector()));
-    if(IsSigned() && !x.IsSigned() || !IsSigned() && x.IsSigned()){
-        Signed = true;
-    } else{
-        Signed = false;
-    }
+    Signed = IsSigned() && !x.IsSigned() || !IsSigned() && x.IsSigned();
 }
 
 void BigInt::Multiply(Multiprecision x){

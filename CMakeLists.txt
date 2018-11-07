@@ -12,7 +12,7 @@ target_link_libraries (TestAddition src)
 
 enable_testing()
 
-add_test (AdditionComp1 TestAddition 25)
+add_test (AdditionComp1 TestAddition 25 25)
 
 set_tests_properties (AdditionComp1
         PROPERTIES PASS_REGULAR_EXPRESSION "25 + 25 = 50")
