@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <climits>
 
 using Multiprecision = std::vector<uint_fast8_t>;
 
