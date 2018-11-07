@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <climits>
 
 using Multiprecision = std::vector<uint_fast8_t>;
 
@@ -153,6 +155,7 @@ std::ostream &operator << (std::ostream &os, BigInt const &m);              //Ov
 
 std::istream & operator >> (std::istream &in,  BigInt &c);                  //Overloads operator>> to cin the value of BigInt.SetString(in)
 
+bool operator==(const BigInt &x, const BigInt &y);                          //Overloads operator= to compare types BigInt and BigInt
 
 BigInt operator+(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
 
