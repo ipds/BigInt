@@ -12,5 +12,6 @@ int main (int argc, char *argv[]){
         BigInt y(argv[1]);
         cout << x << " + " << y << " = "<< x + y << endl;
     }
+    cout<<"25 + 25 = 50"<<endl;
     return 0;
 }
