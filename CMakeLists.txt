@@ -3,4 +3,4 @@ project(bigint)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(bigint main.cpp BigInt.cpp BigInt.h operator_overload.cpp addition.cpp subtraction.cpp conversions.cpp constr-get-set.cpp multiplication.cpp division.cpp)
+add_executable(bigint test/main.cpp src/BigInt.cpp src/BigInt.h src/operator_overload.cpp src/addition.cpp src/subtraction.cpp src/conversions.cpp src/constr-get-set.cpp src/multiplication.cpp src/division.cpp)

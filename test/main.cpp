@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#include "BigInt.h"
+#include "../src/BigInt.h"
 
 using namespace std;
 
