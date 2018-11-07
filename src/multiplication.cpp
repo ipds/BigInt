@@ -3,6 +3,7 @@
 //
 
 #include <utility>
+#include <vector>
 
 #include "BigInt.h"
 
@@ -45,7 +46,11 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
 
 void BigInt::Multiply(BigInt x){
     Set(Multiply(GetVector(), x.GetVector()));
-    Signed = IsSigned() && !x.IsSigned() || !IsSigned() && x.IsSigned();
+    if(IsSigned() && !x.IsSigned() || !IsSigned() && x.IsSigned()){
+        Signed = true;
+    } else{
+        Signed = false;
+    }
 }
 
 void BigInt::Multiply(Multiprecision x){

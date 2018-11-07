@@ -7,7 +7,6 @@
 using namespace std;
 
 int main (int argc, char *argv[]){
-    cout<<argc;
     if(argc >= 2) {
         BigInt x(argv[0]);
         BigInt y(argv[1]);
