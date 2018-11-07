@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using Multiprecision = std::vector<uint_fast8_t>;
 

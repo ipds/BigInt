@@ -14,5 +14,4 @@ enable_testing()
 
 add_test (AdditionComp1 TestAddition 25 25)
 
-set_tests_properties (AdditionComp1
-        PROPERTIES PASS_REGULAR_EXPRESSION "25 + 25 = 50")
+set_tests_properties (AdditionComp1 PROPERTIES PASS_REGULAR_EXPRESSION "25 + 25 = 50")
