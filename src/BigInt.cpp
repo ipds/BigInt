@@ -53,7 +53,7 @@ int BigInt::Compare(BigInt x) const{
             } else{
                 if(Sum() > x.Sum()){
                     return 1;
-                } else if (Sum() > x.Sum()){
+                } else if (Sum() < x.Sum()){
                     return 2;
                 } else{
                     return 0;
