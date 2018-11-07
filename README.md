@@ -1,5 +1,5 @@
-<img src="./imgs/BIGint-logo.png">
+# BigInt
+A simple c++ multiprecision library
 
-## Introduction
-
-BIGint is a simple and lightweight Arbitrary-Precision library for C++. It's created by IPDS team with IPDS in mind.
+Done:
+- Addition and Subtraction

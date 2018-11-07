@@ -74,16 +74,3 @@ bool BigInt::IsGreater(BigInt x) const{
 bool BigInt::IsSmaller(BigInt x) const{
     return (Compare(x) == 2);
 }
-
-Multiprecision BigInt::Abs(Multiprecision x) const {
-    if(x[0] == uint_fast8_t('\xfd')){
-        x.pop_back();
-    }
-    return x;
-}
-
-BigInt BigInt::Abs() const {
-    BigInt z(GetVector());
-    z.SetSign(false);
-    return z;
-}

@@ -10,28 +10,26 @@
 //  MAIN FUNCTION
 
 Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
-    uint_fast8_t curr = 0;
+    uint_fast8_t carry = 0;
     Multiprecision fraction{};
     Multiprecision res{0};
-
     reverse(x.begin(), x.end());
     reverse(y.begin(), y.end());
-
     for(unsigned int i = 0; i < x.size(); ++i)
     {
         for (auto &y_elem : y)
         {
-            curr += (x[i] * y_elem);
-            if(curr >= 10){
-                fraction.push_back(curr % uint_fast8_t (base));
-                curr -= (curr % base);
-            } else{
-                fraction.push_back(curr);
-                curr = 0;
+            carry += (x[i] * y_elem);
+            if(carry >= 10){
+                fraction.push_back(carry % uint_fast8_t (base));
+                carry -= (carry % uint_fast8_t (base));
+                carry /= uint_fast8_t (base);
+            } else {
+                fraction.push_back(carry);
+                carry = 0;
             }
         }
-
-        if(curr){ fraction.push_back(curr); }
+        if(carry){ fraction.push_back(carry); carry = 0; }
         reverse(fraction.begin(), fraction.end());
         for(unsigned int j = 0; j < i; ++j){
             fraction.push_back(0);

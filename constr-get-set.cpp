@@ -18,11 +18,6 @@ BigInt::BigInt(long long root){ Set(root); }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  GET
 
-
-unsigned int BigInt::GetBase() const {
-    return base;
-}
-
 std::string BigInt::GetString() const {
     return ToString(num);
 }
