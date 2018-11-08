@@ -17,9 +17,7 @@ target_link_libraries (TestAddition gtest gtest_main)
 
 enable_testing()
 
-add_test (AdditionComp1 TestAddition 25 25)
-
-set_tests_properties (AdditionComp1 PROPERTIES PASS_REGULAR_EXPRESSION "25 + 25 = 50")
+add_test (A TestAddition)
 
 project(Main)
 set(CMAKE_CXX_STANDARD 11)
