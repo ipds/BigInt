@@ -5,7 +5,7 @@
 #include <string>
 #include <cmath>
 #include <gtest/gtest.h>
-#include "../src/BigInt.h"
+#include "BigInt.h"
 using namespace std;
 int main(){
     BigInt foo("123");
