@@ -1,6 +1,4 @@
-//
-// Created by Adam Szokalski on 07/11/2018.
-//
+//This is example usage of BigInt
 
 #include <iostream>
 #include <vector>
