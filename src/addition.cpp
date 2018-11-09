@@ -15,10 +15,11 @@ Multiprecision BigInt::Add(Multiprecision x, Multiprecision y) const {
     reverse(y.begin(), y.end());
 
     for(unsigned int i = 0; i < std::max(x.size(), y.size()) || carry; ++i){
-        if(i == x.size()) {x.push_back(0); }
-        if(i == y.size()) {y.push_back(0); }
+        if(i == x.size()) x.push_back(0);
+        if(i == y.size()) y.push_back(0);
 
         carry += x[i] + y[i];
+
         if(carry >= base){
             res.push_back(carry - uint_fast8_t(base));
             carry = 1;

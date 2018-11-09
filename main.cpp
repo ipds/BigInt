@@ -10,8 +10,8 @@
 #include "../src/BigInt.h"
 using namespace std;
 int main(){
-    BigInt foo("12367834629427847942978024");
-    BigInt bar("7775877562728");
+    BigInt foo("123");
+    BigInt bar("246");
     cout<< foo - bar<<endl;
     return 0;
 }

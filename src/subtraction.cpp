@@ -15,8 +15,13 @@ Multiprecision BigInt::Subtract(Multiprecision x, Multiprecision y) const{
 
     reverse(x.begin(), x.end());
     reverse(y.begin(), y.end());
-    for(unsigned int k = 0; k < std::max(x.size(), y.size()); ++k){
-        carry += x[k] - y[k];
+
+    for(unsigned int i = 0; i < std::max(x.size(), y.size()); ++i){
+        if(i == x.size()) x.push_back(0);
+        if(i == y.size()) y.push_back(0);
+
+        carry += x[i] - y[i];
+
         if(carry < 0){
             res.push_back(uint_fast8_t(carry) + uint_fast8_t(base));
             carry = -1;
@@ -25,10 +30,13 @@ Multiprecision BigInt::Subtract(Multiprecision x, Multiprecision y) const{
             carry = 0;
         }
     }
+
     while (res.size() > 1 && res.back() == 0){
         res.pop_back();
     }
+
     reverse(res.begin(), res.end());
+
     return res;
 }
 

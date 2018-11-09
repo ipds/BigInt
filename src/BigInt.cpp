@@ -24,47 +24,25 @@ long long BigInt::Sum() const{
 }
 
 int BigInt::Compare(BigInt x) const{
-    if(IsSigned()){
-        if(x.IsSigned()){
-            if(GetVector().size() > x.GetVector().size()){
-                return 2;
-            } else if(GetVector().size() < x.GetVector().size()){
+    if(Equals(x)){
+        return 0;
+    } else if(GetVector().size() == x.GetVector().size()){
+        Multiprecision tv = GetVector();
+        Multiprecision xv = x.GetVector();
+        for (unsigned int i = 0; i < tv.size(); ++i) {
+            if(tv[i] > xv[i]){
                 return 1;
-            } else{
-                if(Sum() > x.Sum()){
-                    return 2;
-                } else if (Sum() > x.Sum()){
-                    return 1;
-                } else{
-                    return 0;
-                }
+            } else if (tv[i] < xv[i]){
+                return 2;
             }
-        } else{
-            return 2;
         }
     } else{
-        if(x.IsSigned()){
-            return 2;
-        } else{
-            if(GetVector().size() > x.GetVector().size()){
-                return 1;
-            } else if(GetVector().size() < x.GetVector().size()){
-                return 2;
-            } else{
-                if(Sum() > x.Sum()){
-                    return 1;
-                } else if (Sum() < x.Sum()){
-                    return 2;
-                } else{
-                    return 0;
-                }
-            }
-        }
+        return (GetVector().size() * (IsSigned() ? -1 : 1) < x.GetVector().size() * (x.IsSigned() ? -1 : 1)) + 1;
     }
 }
 
 bool BigInt::Equals(BigInt x) const{
-    return (Signed == x.IsSigned() && Sum() == x.Sum());
+    return (Signed == x.IsSigned() && GetVector() == x.GetVector());
 }
 
 bool BigInt::IsGreater(BigInt x) const{
