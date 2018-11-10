@@ -34,23 +34,24 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
     Multiprecision res{0};
     std::reverse(x.begin(), x.end());
     std::reverse(y.begin(), y.end());
-    for(unsigned int i = 0; i < x.size(); ++i)
-    {
-        for (auto &y_elem : y)
-        {
+    for (unsigned int i = 0; i < x.size(); ++i) {
+        for (auto &y_elem : y) {
             carry += (x[i] * y_elem);
-            if(carry >= 10){
-                fraction.push_back(carry % uint_fast8_t (base));
-                carry -= (carry % uint_fast8_t (base));
-                carry /= uint_fast8_t (base);
+            if (carry >= 10) {
+                fraction.push_back(carry % uint_fast8_t(base));
+                carry -= (carry % uint_fast8_t(base));
+                carry /= uint_fast8_t(base);
             } else {
                 fraction.push_back(carry);
                 carry = 0;
             }
         }
-        if(carry){ fraction.push_back(carry); carry = 0; }
+        if (carry) {
+            fraction.push_back(carry);
+            carry = 0;
+        }
         std::reverse(fraction.begin(), fraction.end());
-        for(unsigned int j = 0; j < i; ++j){
+        for (unsigned int j = 0; j < i; ++j) {
             fraction.push_back(0);
         }
         res = Add(res, fraction);
@@ -62,31 +63,31 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  ONE ARGUMENT
 
-void BigInt::Multiply(BigInt x){
+void BigInt::Multiply(BigInt x) {
     Set(Multiply(GetVector(), x.GetVector()));
-    if(IsSigned() && !x.IsSigned() || !IsSigned() && x.IsSigned()){
+    if (IsSigned() && !x.IsSigned() || !IsSigned() && x.IsSigned()) {
         Signed = true;
-    } else{
+    } else {
         Signed = false;
     }
 }
 
-void BigInt::Multiply(Multiprecision x){
+void BigInt::Multiply(Multiprecision x) {
     BigInt z(std::move(x));
     Multiply(z);
 }
 
-void BigInt::Multiply(std::string x){
+void BigInt::Multiply(std::string x) {
     BigInt z(std::move(x));
     Multiply(z);
 }
 
-void BigInt::Multiply(long long x){
+void BigInt::Multiply(long long x) {
     BigInt z(x);
     Multiply(z);
 }
 
-BigInt BigInt::Multiply(BigInt x) const{
+BigInt BigInt::Multiply(BigInt x) const {
     BigInt z(GetVector());
     z.SetSign(IsSigned());
     z.Multiply(std::move(x));
