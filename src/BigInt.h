@@ -70,6 +70,9 @@ private:
 
     Multiprecision Divide(Multiprecision x, uint_fast8_t y) const;          //Division by a shrot integer (< base) (whole division)
 
+    Multiprecision
+    Divide(Multiprecision n, Multiprecision d) const;          //Division by a shrot integer (< base) (whole division)
+
 public:
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -150,7 +153,17 @@ public:
 
     BigInt Multiply(BigInt x) const;                                        //return this(BigInt) * BigInt
 
-    void Divide(uint_fast8_t x);                                            //Divide a num by short int
+
+    void Divide(uint_fast8_t x);                                            //Divide num by short int
+
+    void Divide(Multiprecision x);                                          //Divide num by Multiprecision
+
+    void Divide(BigInt x);                                                  //Divide num by Multiprecision
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  NO ARGUMENT MATHEMATICAL FUNCTIONS
+
+    BigInt Abs() const;                                                     //returns absolute value
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  LOGICAL FUNCTIONS

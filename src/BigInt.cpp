@@ -21,14 +21,13 @@
 
 
 #include "BigInt.h"
-#include <iostream>
-#include <utility>
-#include <vector>
-#include <string>
-#include <cmath>
 
 //No category yet
 
 int BigInt::CountDigits(long long n) const {
     return int(ceil(log10(n)));
+}
+
+BigInt BigInt::Abs() const {
+    return BigInt(num);
 }

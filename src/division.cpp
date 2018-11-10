@@ -23,7 +23,7 @@
 #include "BigInt.h"
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  MAIN FUNCTION
+//  MAIN FUNCTION - SHORT DIVISION
 
 Multiprecision BigInt::Divide(Multiprecision x, uint_fast8_t y) const{
     Multiprecision res{};
@@ -46,7 +46,46 @@ Multiprecision BigInt::Divide(Multiprecision x, uint_fast8_t y) const{
 
     return res;
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  MAIN FUNCTION - LONG DIVISION
+
+Multiprecision BigInt::Divide(Multiprecision n, Multiprecision d) const {
+    BigInt numerator(n);
+    BigInt denominator(d);
+
+    unsigned long magnitude = d.size() - 1ul;
+    uint_fast8_t quickDivisor = d[0];
+    BigInt quotient = numerator / quickDivisor;
+    BigInt remainder = denominator + 1;
+
+    while (remainder.Abs() >= denominator) {
+        remainder = numerator - (quotient * denominator);
+        BigInt newQuotient = quotient + (remainder / quickDivisor);
+        quotient = (quotient + newQuotient) / 2;
+    }
+    remainder = numerator - (quotient * denominator);
+
+    if (remainder < BigInt(0)) {
+        quotient = quotient - 1;
+        remainder = remainder + denominator;
+    }
+
+    return quotient.GetVector();
+
+}
+
 
 void BigInt::Divide(uint_fast8_t x) {
     Set(Divide(GetVector(), x));
+}
+
+void BigInt::Divide(Multiprecision x) {
+    BigInt z(GetVector());
+    z.SetSign(IsSigned());
+    Divide(z);
+}
+
+void BigInt::Divide(BigInt x) {
+    Set(Divide(GetVector(), x.GetVector()));
+    Signed = (IsSigned() && !x.IsSigned()) || (x.IsSigned() && !IsSigned());
 }

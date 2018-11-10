@@ -65,11 +65,7 @@ Multiprecision BigInt::Multiply(Multiprecision x, Multiprecision y) const {
 
 void BigInt::Multiply(BigInt x) {
     Set(Multiply(GetVector(), x.GetVector()));
-    if (IsSigned() && !x.IsSigned() || !IsSigned() && x.IsSigned()) {
-        Signed = true;
-    } else {
-        Signed = false;
-    }
+    Signed = (IsSigned() && !x.IsSigned()) || (x.IsSigned() && !IsSigned());
 }
 
 void BigInt::Multiply(Multiprecision x) {
