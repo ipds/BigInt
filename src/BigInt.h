@@ -68,7 +68,7 @@ private:
 
     Multiprecision Multiply(Multiprecision x, Multiprecision y) const;      //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> * vector<uint_fast8_t>
 
-    Multiprecision Divide(Multiprecision x, Multiprecision y) const;        //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> * vector<uint_fast8_
+    Multiprecision Divide(Multiprecision x, uint_fast8_t y) const;          //Division by a shrot integer (< base)
 
 public:
 

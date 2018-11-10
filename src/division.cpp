@@ -25,9 +25,24 @@
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  MAIN FUNCTION
 
-Multiprecision BigInt::Divide(Multiprecision n, Multiprecision d) const {
-    unsigned int m = uint(d.size()) - 1;
-    Multiprecision a = {d[0]};
-    return a;
+Multiprecision BigInt::Divide(Multiprecision x, uint_fast8_t y) const{
+    Multiprecision res{};
+    uint_fast8_t  remainder = x[0];
 
+    for (int i = 0; i < x.size(); ++i) {
+        res.push_back(remainder / y);
+        uint_fast8_t wholeNum = res[i] * y;
+        remainder -= wholeNum;
+        remainder *= 10;
+        if(i < x.size() - 1) remainder +=  x[i + 1];
+    }
+
+    if(res.front() == 0){
+        reverse(res.begin(), res.end());
+        while (res.back() == 0)
+            res.pop_back();
+        reverse(res.begin(), res.end());
+    }
+
+    return res;
 }
