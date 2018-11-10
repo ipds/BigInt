@@ -143,3 +143,12 @@ BigInt operator*(const BigInt &x, const std::string &y)
     const BigInt z(y);
     return x.Multiply(z);
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  SHORT DIVISION
+
+BigInt operator/(const BigInt &x, const uint_fast8_t &y) {
+    BigInt z(x.GetString());
+    z.Divide(y);
+    return z;
+}

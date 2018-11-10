@@ -68,7 +68,7 @@ private:
 
     Multiprecision Multiply(Multiprecision x, Multiprecision y) const;      //(vector<uint_fast8_t>, vector<uint_fast8_t>) --> vector<uint_fast8_t> * vector<uint_fast8_t>
 
-    Multiprecision Divide(Multiprecision x, uint_fast8_t y) const;          //Division by a shrot integer (< base)
+    Multiprecision Divide(Multiprecision x, uint_fast8_t y) const;          //Division by a shrot integer (< base) (whole division)
 
 public:
 
@@ -140,7 +140,7 @@ public:
     BigInt Subtract(BigInt x) const;                                        //return this(BigInt) - BigInt
 
 
-    void Multiply(BigInt x);                                                //Multiply a number expressesed in BigInt from num
+    void Multiply(BigInt x);                                                //Multiply a number expressesed in BigInt by num
 
     void Multiply(Multiprecision x);                                        //Multiply a number expressesed in vector<uint_fast8_t> from num
 
@@ -149,6 +149,8 @@ public:
     void Multiply(long long x);                                             //Multiply a number expressesed in BigInt from num
 
     BigInt Multiply(BigInt x) const;                                        //return this(BigInt) * BigInt
+
+    void Divide(uint_fast8_t x);                                            //Divide a num by short int
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  LOGICAL FUNCTIONS
@@ -171,10 +173,14 @@ std::istream & operator >> (std::istream &in,  BigInt &c);                  //Ov
 
 
 bool operator==(const BigInt &x, const BigInt &y);                          //Overloads operator= to compare types BigInt and BigInt
+
 bool operator<(const BigInt &x, const BigInt &y);                           //Overloads operator< to compare types BigInt and BigInt. Is x smaller than y?
+
 bool operator>(const BigInt &x, const BigInt &y);                           //Overloads operator> to compare types BigInt and BigInt. Is x greater than y?
-bool operator<=(const BigInt &x, const BigInt &y);                           //Overloads operator<= to compare types BigInt and BigInt. x < or == y?
-bool operator>=(const BigInt &x, const BigInt &y);                           //Overloads operator>= to compare types BigInt and BigInt. x > or == y?
+
+bool operator<=(const BigInt &x, const BigInt &y);                          //Overloads operator<= to compare types BigInt and BigInt. x < or == y?
+
+bool operator>=(const BigInt &x, const BigInt &y);                          //Overloads operator>= to compare types BigInt and BigInt. x > or == y?
 
 BigInt operator+(const BigInt &x, const BigInt &y);                         //Overloads operator+ to add types BigInt and BigInt
 
@@ -198,16 +204,17 @@ BigInt operator-(const std::string &x, const BigInt &y);                    //Ov
 BigInt operator-(const BigInt &x, const std::string &y);                    //Overloads operator- to subtract types BigInt and string
 
 
-BigInt operator*(const BigInt &x, const BigInt &y);                         //Overloads operator- to multiply types BigInt and BigInt
+BigInt operator*(const BigInt &x, const BigInt &y);                         //Overloads operator* to multiply types BigInt and BigInt
 
-BigInt operator*(const long long &x, const BigInt &y);                      //Overloads operator- to multiply types long long int and BigInt
+BigInt operator*(const long long &x, const BigInt &y);                      //Overloads operator* to multiply types long long int and BigInt
 
-BigInt operator*(const BigInt &x, const long long &y);                      //Overloads operator- to multiply types BigInt and long long int
+BigInt operator*(const BigInt &x, const long long &y);                      //Overloads operator* to multiply types BigInt and long long int
 
-BigInt operator*(const std::string &x, const BigInt &y);                    //Overloads operator- to multiply types string and BigInt
+BigInt operator*(const std::string &x, const BigInt &y);                    //Overloads operator* to multiply types string and BigInt
 
-BigInt operator*(const BigInt &x, const std::string &y);                    //Overloads operator- to multiply types BigInt and string
+BigInt operator*(const BigInt &x, const std::string &y);                    //Overloads operator* to multiply types BigInt and string
 
 
+BigInt operator/(const BigInt &x, const uint_fast8_t &y);                   //Overloads operator/ to divide types BigInt by a short int (whole short division)
 
 #endif //BIGINT_BIGINT_H

@@ -46,3 +46,7 @@ Multiprecision BigInt::Divide(Multiprecision x, uint_fast8_t y) const{
 
     return res;
 }
+
+void BigInt::Divide(uint_fast8_t x) {
+    Set(Divide(GetVector(), x));
+}
