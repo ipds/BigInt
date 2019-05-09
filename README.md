@@ -8,3 +8,4 @@
 
 A simple c++ multiprecision library
 
+DISCONTINUED
